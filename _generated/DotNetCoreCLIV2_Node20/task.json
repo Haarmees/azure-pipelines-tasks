@@ -1,7 +1,7 @@
 {
-  "id": "5541a522-603c-47ad-91fc-a4b1d163081b",
-  "name": "DotNetCoreCLI",
-  "friendlyName": ".NET Core",
+  "id": "1b0399a2-3b08-4642-820d-d2eb2fbff87a",
+  "name": "ChipSoftDotNetCoreCLI",
+  "friendlyName": "ChipSoft .NET Core",
   "description": "Build, test, package, or publish a dotnet application, or run a custom dotnet command",
   "author": "Microsoft Corporation",
   "helpUrl": "https://docs.microsoft.com/azure/devops/pipelines/tasks/build/dotnet-core-cli",
@@ -513,6 +513,15 @@
       "defaultValue": 300000,
       "required": false,
       "helpMarkDown": "Provide a timeout value for HTTP requests that the task makes to obtain the .NET package. The value is in milliseconds. Default is 300000 milliseconds (5 minutes). Cannot be more than 600000 milliseconds (10 minutes)."
+    },
+    {
+      "name": "runParallel",
+      "type": "boolean",
+      "label": "Run tests dlls parallel",
+      "defaultValue": "false",
+      "visibleRule": "command = test",
+      "required": false,
+      "helpMarkDown": "This will run dll test files at the same time with the --parallel option."
     }
   ],
   "dataSourceBindings": [

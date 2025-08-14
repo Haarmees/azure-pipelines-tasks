@@ -1,6 +1,6 @@
 {
-  "id": "5541a522-603c-47ad-91fc-a4b1d163081b",
-  "name": "DotNetCoreCLI",
+  "id": "1b0399a2-3b08-4642-820d-d2eb2fbff87a",
+  "name": "ChipSoftDotNetCoreCLI",
   "friendlyName": "ms-resource:loc.friendlyName",
   "description": "ms-resource:loc.description",
   "author": "Microsoft Corporation",
@@ -513,6 +513,15 @@
       "defaultValue": 300000,
       "required": false,
       "helpMarkDown": "ms-resource:loc.input.help.requestTimeout"
+    },
+    {
+      "name": "runParallel",
+      "type": "boolean",
+      "label": "ms-resource:loc.input.label.runParallel",
+      "defaultValue": "false",
+      "visibleRule": "command = test",
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.runParallel"
     }
   ],
   "dataSourceBindings": [

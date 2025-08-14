@@ -31,6 +31,7 @@ export class dotNetExe {
     private outputArgumentIndex: number = 0;
     private workingDirectory: string;
     private testRunSystem: string = "VSTS - dotnet";
+    private runParallel: boolean;
 
     constructor() {
         this.command = tl.getInput("command");
@@ -39,6 +40,7 @@ export class dotNetExe {
         this.publishWebProjects = tl.getBoolInput("publishWebProjects", false);
         this.zipAfterPublish = tl.getBoolInput("zipAfterPublish", false);
         this.workingDirectory = tl.getPathInput("workingDirectory", false);
+        this.runParallel = tl.getBoolInput("runParallel", false);
     }
 
     public async execute() {
@@ -160,28 +162,46 @@ export class dotNetExe {
         }
 
         // Use empty string when no project file is specified to operate on the current directory
-        const projectFiles = this.getProjectFiles();
+        let projectFiles = this.getProjectFiles();
         if (projectFiles.length === 0) {
             tl.warning(tl.loc('noProjectFilesFound'));
             return;
         }
 
         const failedProjects: string[] = [];
-        for (const fileIndex of Object.keys(projectFiles)) {
-            const projectFile = projectFiles[fileIndex];
+
+        if(this.runParallel){
             const dotnet = tl.tool(dotnetPath);
             dotnet.arg(this.command);
-            dotnet.arg(projectFile);
+            dotnet.arg(projectFiles);
             dotnet.line(this.arguments);
+            dotnet.arg('--parallel')
             try {
                 const result = await dotnet.exec(<tr.IExecOptions>{
                     cwd: this.workingDirectory
                 });
             } catch (err) {
                 tl.error(err);
-                failedProjects.push(projectFile);
+                failedProjects.push(...projectFiles);
+            }
+        } else {
+            for (const fileIndex of Object.keys(projectFiles)) {
+                const projectFile = projectFiles[fileIndex];
+                const dotnet = tl.tool(dotnetPath);
+                dotnet.arg(this.command);
+                dotnet.arg(projectFile);
+                dotnet.line(this.arguments);
+                try {
+                    const result = await dotnet.exec(<tr.IExecOptions>{
+                        cwd: this.workingDirectory
+                    });
+                } catch (err) {
+                    tl.error(err);
+                    failedProjects.push(projectFile);
+                }
             }
         }
+
         if (enablePublishTestResults && enablePublishTestResults === true) {
             this.publishTestResults(resultsDirectory);
         }

@@ -1,5 +1,5 @@
 {
-  "loc.friendlyName": ".NET Core",
+  "loc.friendlyName": "ChipSoft .NET Core",
   "loc.helpMarkDown": "[Learn more about this task](https://go.microsoft.com/fwlink/?linkid=832194) or [see the .NET Core documentation](https://docs.microsoft.com/dotnet/core/)",
   "loc.description": "Build, test, package, or publish a dotnet application, or run a custom dotnet command",
   "loc.instanceNameFormat": "dotnet $(command)",
@@ -87,6 +87,8 @@
   "loc.input.help.workingDirectory": "Current working directory where the script is run. Empty is the root of the repo (build) or artifacts (release), which is $(System.DefaultWorkingDirectory). The project search pattern is **NOT** relative to working directory.",
   "loc.input.label.requestTimeout": "Set timeout for package download request",
   "loc.input.help.requestTimeout": "Provide a timeout value for HTTP requests that the task makes to obtain the .NET package. The value is in milliseconds. Default is 300000 milliseconds (5 minutes). Cannot be more than 600000 milliseconds (10 minutes).",
+  "loc.input.label.runParallel": "Run tests dlls parallel",
+  "loc.input.help.runParallel": "This will run dll test files at the same time with the --parallel option.",
   "loc.messages.BuildIdentityPermissionsHint": "For internal feeds, make sure the build service identity '%s' [%s] has access to the feed.",
   "loc.messages.CouldNotSetCodePaging": "Could not set the code paging of due to following error: %s",
   "loc.messages.Error_AutomaticallyVersionReleases": "Autoversion: Getting version number from build option is not supported in releases",
