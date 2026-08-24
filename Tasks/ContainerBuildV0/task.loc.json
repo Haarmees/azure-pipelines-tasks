@@ -13,8 +13,8 @@
   "author": "Microsoft Corporation",
   "version": {
     "Major": 0,
-    "Minor": 260,
-    "Patch": 1
+    "Minor": 277,
+    "Patch": 4
   },
   "demands": [],
   "satisfies": [
@@ -74,6 +74,10 @@
     "Node20_1": {
       "target": "src//buildcontainer.js",
       "argumentFormat": ""
+    },
+    "Node24": {
+      "target": "src//buildcontainer.js",
+      "argumentFormat": ""
     }
   },
   "messages": {
@@ -84,6 +88,7 @@
     "BuildctlNotFoundInFolder": "ms-resource:loc.messages.BuildctlNotFoundInFolder",
     "FileContentSynced": "ms-resource:loc.messages.FileContentSynced",
     "VerifyBuildctlInstallation": "ms-resource:loc.messages.VerifyBuildctlInstallation",
-    "WritingDockerConfigToTempFile": "ms-resource:loc.messages.WritingDockerConfigToTempFile"
+    "WritingDockerConfigToTempFile": "ms-resource:loc.messages.WritingDockerConfigToTempFile",
+    "NotAddingAnyTagsToBuild": "ms-resource:loc.messages.NotAddingAnyTagsToBuild"
   }
 }

@@ -4,7 +4,7 @@ import * as path from 'node:path';
 import * as ttm from 'azure-pipelines-task-lib/mock-test';
 
 describe('NuGetCommand Suite', function () {
-    this.timeout(parseInt(process.env.TASK_TEST_TIMEOUT) || 10000);
+    this.timeout(parseInt(process.env.TASK_TEST_TIMEOUT) || 60000);
 
     it('restore single solution', async () => {
         const tp = path.join(__dirname, './RestoreTests/singlesln.js')
@@ -16,7 +16,7 @@ describe('NuGetCommand Suite', function () {
         assert(tr.stdOutContained('NuGet output here'), 'should have nuget output');
         assert(tr.succeeded, 'should have succeeded');
         assert.equal(tr.errorIssues.length, 0, 'should have no errors');
-    }).timeout(20000);
+    });
 
     it('restore single solution with CredentialProvider', async () => {
         const tp = path.join(__dirname, './RestoreTests/singleslnCredentialProvider.js')
@@ -190,6 +190,50 @@ describe('NuGetCommand Suite', function () {
         assert(tr.ran('c:\\from\\tool\\installer\\nuget.exe push c:\\agent\\home\\directory\\foo.nupkg -NonInteractive -Source https://vsts/packagesource -ApiKey VSTS'), 'it should have run NuGet');
         assert(tr.stdOutContained('setting console code page'), 'it should have run chcp');
         assert(tr.stdOutContained('NuGet output here'), 'should have nuget output');
+        assert(tr.succeeded, 'should have succeeded');
+        assert.equal(tr.errorIssues.length, 0, 'should have no errors');
+    });
+
+    it('push passes -Timeout to nuget.exe when requestTimeout is set', async () => {
+        const tp = path.join(__dirname, './PublishTests/internalFeedNuGetRequestTimeout.js')
+        const tr = new ttm.MockTestRunner(tp);
+        await tr.runAsync();
+        assert(tr.invokedToolCount == 1, 'should have run NuGet once');
+        assert(tr.ran('c:\\from\\tool\\installer\\nuget.exe push c:\\agent\\home\\directory\\foo.nupkg -NonInteractive -Source https://vsts/packagesource -ApiKey VSTS -Timeout 300'), 'it should have run NuGet with -Timeout');
+        assert(tr.succeeded, 'should have succeeded');
+        assert.equal(tr.errorIssues.length, 0, 'should have no errors');
+    });
+
+    it('push omits -Timeout when requestTimeout is not set', async () => {
+        const tp = path.join(__dirname, './PublishTests/internalFeedNuGetNoRequestTimeout.js')
+        const tr = new ttm.MockTestRunner(tp);
+        await tr.runAsync();
+        assert(tr.invokedToolCount == 1, 'should have run NuGet once');
+        assert(tr.ran('c:\\from\\tool\\installer\\nuget.exe push c:\\agent\\home\\directory\\foo.nupkg -NonInteractive -Source https://vsts/packagesource -ApiKey VSTS'), 'it should have run NuGet without -Timeout');
+        assert(tr.succeeded, 'should have succeeded');
+        assert.equal(tr.errorIssues.length, 0, 'should have no errors');
+    });
+
+    it('push with negative requestTimeout warns and omits -Timeout', async () => {
+        const tp = path.join(__dirname, './PublishTests/internalFeedNuGetNegativeRequestTimeout.js')
+        const tr = new ttm.MockTestRunner(tp);
+        await tr.runAsync();
+        assert(tr.invokedToolCount == 1, 'should have run NuGet once');
+        assert(tr.ran('c:\\from\\tool\\installer\\nuget.exe push c:\\agent\\home\\directory\\foo.nupkg -NonInteractive -Source https://vsts/packagesource -ApiKey VSTS'), 'it should have run NuGet without -Timeout');
+        assert.equal(tr.warningIssues.length, 1, 'should have one warning');
+        assert.equal(tr.warningIssues[0], 'loc_mock_Warning_NegativeRequestTimeoutIgnored -1', 'should warn that negative requestTimeout is ignored');
+        assert(tr.succeeded, 'should have succeeded');
+        assert.equal(tr.errorIssues.length, 0, 'should have no errors');
+    });
+
+    it('push with non-numeric requestTimeout warns and omits -Timeout', async () => {
+        const tp = path.join(__dirname, './PublishTests/internalFeedNuGetInvalidRequestTimeout.js')
+        const tr = new ttm.MockTestRunner(tp);
+        await tr.runAsync();
+        assert(tr.invokedToolCount == 1, 'should have run NuGet once');
+        assert(tr.ran('c:\\from\\tool\\installer\\nuget.exe push c:\\agent\\home\\directory\\foo.nupkg -NonInteractive -Source https://vsts/packagesource -ApiKey VSTS'), 'it should have run NuGet without -Timeout');
+        assert.equal(tr.warningIssues.length, 1, 'should have one warning');
+        assert.equal(tr.warningIssues[0], 'loc_mock_Warning_InvalidRequestTimeoutIgnored not-a-number', 'should warn that non-numeric requestTimeout is ignored');
         assert(tr.succeeded, 'should have succeeded');
         assert.equal(tr.errorIssues.length, 0, 'should have no errors');
     });

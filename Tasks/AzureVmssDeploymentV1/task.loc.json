@@ -14,7 +14,7 @@
   "author": "Microsoft Corporation",
   "version": {
     "Major": 1,
-    "Minor": 261,
+    "Minor": 279,
     "Patch": 0
   },
   "demands": [],
@@ -173,6 +173,10 @@
     "Node20_1": {
       "target": "main.js",
       "argumentFormat": ""
+    },
+    "Node24": {
+      "target": "main.js",
+      "argumentFormat": ""
     }
   },
   "messages": {
@@ -226,6 +230,8 @@
     "CouldNotFetchAccessTokenforMSIStatusCode": "ms-resource:loc.messages.CouldNotFetchAccessTokenforMSIStatusCode",
     "ExpiredServicePrincipal": "ms-resource:loc.messages.ExpiredServicePrincipal",
     "UploadingToStorageBlobsAuthenticationFailed": "ms-resource:loc.messages.UploadingToStorageBlobsAuthenticationFailed",
-    "SettingVMExtensionFailedwithAuthentication": "ms-resource:loc.messages.SettingVMExtensionFailedwithAuthentication"
+    "SettingVMExtensionFailedwithAuthentication": "ms-resource:loc.messages.SettingVMExtensionFailedwithAuthentication",
+    "ScriptArgsSanitized": "ms-resource:loc.messages.ScriptArgsSanitized",
+    "ScriptArgsSanitizedBash": "ms-resource:loc.messages.ScriptArgsSanitizedBash"
   }
 }

@@ -47,7 +47,8 @@ export let Commands = {
     upgrade: "upgrade",
     package: "package",
     push: "push",
-    init: "init"
+    init: "init",
+    uninstall: "uninstall"
 };
 
 export let ChartTypes = {
@@ -70,7 +71,7 @@ export const testChartName = "testChartName";
 export const testChartPath = "test/testChartPath";
 export const testChartVersion = "1.1.1";
 export const testReleaseName = "testReleaseName";
-export const isHelmV3 = "__isHelmV3__";
+export const isHelmV3orHigher = "__isHelmV3orHigher__";
 export const isHelmV37 = "__isHelmV37__";
 export const testNamespace = "testNamespace";
 export const testDestinationPath = "testDestinationPath";

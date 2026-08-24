@@ -17,7 +17,7 @@
   "author": "Microsoft Corporation",
   "version": {
     "Major": 0,
-    "Minor": 259,
+    "Minor": 278,
     "Patch": 0
   },
   "demands": [],
@@ -144,6 +144,15 @@
       "required": false,
       "groupName": "advanced",
       "helpMarkDown": "ms-resource:loc.input.help.interactiveKeyboardAuthentication"
+    },
+    {
+      "name": "enableRemoteVsoCommands",
+      "type": "boolean",
+      "label": "ms-resource:loc.input.label.enableRemoteVsoCommands",
+      "defaultValue": false,
+      "required": false,
+      "groupName": "advanced",
+      "helpMarkDown": "ms-resource:loc.input.help.enableRemoteVsoCommands"
     }
   ],
   "execution": {
@@ -152,6 +161,10 @@
       "argumentFormat": ""
     },
     "Node20_1": {
+      "target": "ssh.js",
+      "argumentFormat": ""
+    },
+    "Node24": {
       "target": "ssh.js",
       "argumentFormat": ""
     }

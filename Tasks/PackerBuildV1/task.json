@@ -14,8 +14,8 @@
   "author": "Microsoft Corporation",
   "version": {
     "Major": 1,
-    "Minor": 259,
-    "Patch": 1
+    "Minor": 278,
+    "Patch": 0
   },
   "demands": [],
   "minimumAgentVersion": "2.0.0",
@@ -93,7 +93,6 @@
       "defaultValue": true,
       "groupName": "AzureDetails"
     },
-   
     {
       "name": "managedImageName",
       "type": "string",
@@ -217,7 +216,8 @@
       "defaultValue": "",
       "helpMarkDown": "Specify the arguments to be passed to deployment script.",
       "groupName": "DeploymentInputs"
-    }, {
+    },
+    {
       "name": "canDeleteTempFolder",
       "type": "boolean",
       "label": "Delete temp folder",
@@ -315,6 +315,10 @@
     "Node20_1": {
       "target": "./src//main.js",
       "argumentFormat": ""
+    },
+    "Node24": {
+      "target": "./src//main.js",
+      "argumentFormat": ""
     }
   },
   "messages": {
@@ -351,6 +355,7 @@
     "ExtractingPackerCompleted": "Packer extracted successfully at path: %s.",
     "CreatedStagingDirectory": "Created staging directory for keeping packer binary and templates: %s.",
     "CouldNotDeleteStagingDirectory": "Could not delete staging directory %s. Please delete manually.",
+    "CouldNotDeleteTempFile": "Could not delete temporary variables file %s. Please delete manually.",
     "InstalledPackerVersion": "Current installed packer version is %s.",
     "PackerToolBusy": "Packer tool seems to be busy. Retrying after 1 second...",
     "ResolvingDeployPackageInput": "Resolving deploy package path.",

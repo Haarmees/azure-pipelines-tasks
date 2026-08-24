@@ -10,8 +10,8 @@
   "demands": [],
   "version": {
     "Major": 0,
-    "Minor": 247,
-    "Patch": 3
+    "Minor": 278,
+    "Patch": 0
   },
   "minimumAgentVersion": "2.144.0",
   "instanceNameFormat": "ms-resource:loc.instanceNameFormat",
@@ -108,6 +108,18 @@
     "Node20_1": {
       "target": "main.js",
       "argumentFormat": ""
+    },
+    "Node24": {
+      "target": "main.js",
+      "argumentFormat": ""
+    }
+  },
+  "restrictions": {
+    "commands": {
+      "mode": "restricted"
+    },
+    "settableVariables": {
+      "allowed": []
     }
   },
   "messages": {
